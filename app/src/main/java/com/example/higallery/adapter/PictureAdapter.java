@@ -221,7 +221,9 @@ public class PictureAdapter extends BaseAdapter {
             DiskLruCache.Snapshot snapShot = diskLruCache.get(key);
             if (snapShot != null) {
                 InputStream is = snapShot.getInputStream(0);
-                Bitmap bitmap = BitmapFactory.decodeStream(is);
+//                Bitmap bitmap = BitmapFactory.decodeStream(is);
+                Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeStream(is),100,100,false);
+
                 return new BitmapDrawable(context.getResources(),bitmap);
             }
         } catch (IOException e) {
