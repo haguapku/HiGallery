@@ -1,6 +1,7 @@
 package com.example.higallery.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.example.higallery.ImageDetailsActivity;
 import com.example.higallery.R;
 import com.example.higallery.model.Item;
 
@@ -119,7 +121,16 @@ public class PictureAdapter extends BaseAdapter {
         Item item = items.get(i);
 
         ImageView row_image = viewCache.getImageView();
-        String imageUrl = item.getImageHref();
+        final String imageUrl = item.getImageHref();
+
+        row_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ImageDetailsActivity.class);
+                intent.putExtra("image_path", imageUrl);
+                context.startActivity(intent);
+            }
+        });
 
         //Try to get cache from memory
         BitmapDrawable drawable = getBitmapDrawableFromMemoryCache(imageUrl);
